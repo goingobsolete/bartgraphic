@@ -17,6 +17,7 @@
     "webpack-dev-server": "^4.15.0"
   },
   "dependencies": {
+    "node-fetch": "^3.3.2",
     "p5": "^1.11.0"
   }
 }
