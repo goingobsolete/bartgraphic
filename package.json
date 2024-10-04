@@ -4,7 +4,7 @@
   "description": "A project with ES6 and Webpack",
   "scripts": {
     "build": "webpack --mode production",
-    "start": "webpack serve --mode development"
+    "start": "webpack serve --mode development --open"
   },
   "devDependencies": {
     "@babel/core": "^7.22.0",
