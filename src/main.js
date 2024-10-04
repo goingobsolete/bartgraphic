@@ -1,8 +1,11 @@
 import p5 from 'p5';
+import './styles.css';  // Import the CSS file
 
 new p5((p) => {
     p.setup = () => {
-        p.createCanvas(400, 400);
+        const canvas = p.createCanvas(400, 400);
+        canvas.id('MyCanvas'); // Set id of the canvas
+        canvas.parent('test'); // Attach canvas to the div with id "test"
         p.background(200);
     };
 

@@ -12,6 +12,7 @@ module.exports = {
       directory: path.join(__dirname, 'dist'), // Serve content from "dist"
     },
     port: 9000,  // Port for the dev server
+    hot: true,  // Enable hot module replacement
   },
   module: {
     rules: [
@@ -21,6 +22,10 @@ module.exports = {
         use: {
           loader: 'babel-loader',  // Use Babel loader
         },
+      },
+      {
+        test: /\.css$/,  // Apply to CSS files
+        use: ['style-loader', 'css-loader'],  // Use style-loader and css-loader
       },
     ],
   },
