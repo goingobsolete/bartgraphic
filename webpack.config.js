@@ -40,6 +40,7 @@ module.exports = {
             options: {
               name: '[name].[ext]',
               outputPath: 'images/',  // Output directory for images
+              publicPath: 'images/',  // Public URL for images
             },
           },
         ],
@@ -52,6 +53,7 @@ module.exports = {
             options: {
               name: '[name].[ext]',
               outputPath: 'fonts/',  // Output directory for fonts
+              publicPath: 'fonts/',  // Public URL for fonts
             },
           },
         ],

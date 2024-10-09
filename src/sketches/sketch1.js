@@ -1,10 +1,16 @@
 
 const sketch = (p) => {
+    p.preload = () => {
+        // Load any assets here
+        p.bgImg = p.loadImage('src/assets/images/pagetexture_cleaned.png');
+    }
+
+
     p.setup = () => {
-        const canvas = p.createCanvas(400, 400);
+        const canvas = p.createCanvas(p.bgImg.width, p.bgImg.height); // Create a canvas
         canvas.id('MyCanvas'); // Set id of the canvas
         canvas.parent('test'); // Attach canvas to the div with id "test"
-        p.background(200);
+        p.background(p.bgImg);
     };
 
     p.draw = () => {
