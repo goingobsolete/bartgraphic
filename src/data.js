@@ -28,6 +28,6 @@ export const preload = (pre) => {
     // jsons.grp5 = pre.json('grp5', 'assets/jsons/group5.json');
     // jsons.wordArray = pre.json('wordArray', 'assets/jsons/words_with_line_numbers.json');
 
-    fonts.textFont = pre.loadFont('assets/fonts/Libre_Caslon_Text/LibreCaslonText-Regular.ttf');
-    fonts.signFont = pre.loadFont('assets/fonts/Libre_Caslon_Display/LibreCaslonDisplay-Regular.ttf');
+    fonts.textFont = pre.loadFont('src/assets/fonts/Libre_Caslon_Text/LibreCaslonText-Regular.ttf');
+    fonts.signFont = pre.loadFont('src/assets/fonts/Libre_Caslon_Display/LibreCaslonDisplay-Regular.ttf');
 };
