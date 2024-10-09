@@ -32,6 +32,30 @@ module.exports = {
         test: /\.css$/,  // Apply to CSS files
         use: ['style-loader', 'css-loader'],  // Use style-loader and css-loader
       },
+      {
+        test: /\.(png|jpg|jpeg|gif|svg)$/,  // Add this rule to handle image files
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]',
+              outputPath: 'images/',  // Output directory for images
+            },
+          },
+        ],
+      },
+      {
+        test: /\.(woff|woff2|eot|ttf|otf)$/,  // Rule to handle font files
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]',
+              outputPath: 'fonts/',  // Output directory for fonts
+            },
+          },
+        ],
+      },
     ],
   },
 };
