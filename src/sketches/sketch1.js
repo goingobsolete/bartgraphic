@@ -2,14 +2,13 @@
 import bgImgPath from '../assets/images/pagetexture_cleaned.png';  // Import the image file
 
 // fonts
-import caslonSignPath from '../assets/fonts/Libre_Caslon_Display/LibreCaslonDisplay-Regular.ttf'; // Import the Display font file
-import caslonBoldPath from '../assets/fonts/Libre_Caslon_Text/Libre_Caslon_Text-Bold.ttf'; // Import the Bold font file
-import caslonItalicPath from '../assets/fonts/Libre_Caslon_Text/Libre_Caslon_Text-Italic.ttf'; // Import the Italic font file
-import caslonRegularPath from '../assets/fonts/Libre_Caslon_Text/Libre_Caslon_Text-Regular.ttf'; // Import the Regular font file
+import caslonSignPath from '../assets/fonts/LibreCaslonDisplay-Regular.ttf'; // Import the Display font file
+import caslonBoldPath from '../assets/fonts/Libre_Caslon_Text-Bold.ttf'; // Import the Bold font file
+import caslonItalicPath from '../assets/fonts/Libre_Caslon_Text-Italic.ttf'; // Import the Italic font file
+import caslonRegularPath from '../assets/fonts/Libre_Caslon_Text-Regular.ttf'; // Import the Regular font file
 
 // modules
-import clockCanvas from 'webpackp5Template/src/modulesClasses/clockCanvas.js' // import clockCanvas class  
-
+// import clockCanvas from '../modulesClasses/clockCanvas.js'; // import clockCanvas class  
 
 //TODO: import city list from a json file OR from main.js post calculation
 //TODO: import word list from a json file
@@ -34,24 +33,22 @@ const wordlist = [
 //img variables
 let img;
 
-//font variables
-let signTextFont, boldTextFont, italicTextFont, regularTextFont;
+// //font variables
+// let signFont, boldFont, italicFont, regularFont;
 
-
-
-let baseOffset;
-let clockCanvasArray = [];
+// let baseOffset;
+// let clockCanvasArray = [];
 
 const sketch = (p) => {
     p.preload = () => {
         img = p.loadImage(bgImgPath);  // Load the image
-        signTextFont = p.loadFont(caslonSignPath); // Load the font
-        boldTextFont = p.loadFont(caslonBoldPath); // Load the font
-        italicTextFont = p.loadFont(caslonItalicPath); // Load the font
-        regularTextFont = p.loadFont(caslonRegularPath); // Load the font
+
+        signFont = p.loadFont(caslonSignPath); // Load the font
+        boldFont = p.loadFont(caslonBoldPath); // Load the font
+        italicFont = p.loadFont(caslonItalicPath); // Load the font
+        regularFont = p.loadFont(caslonRegularPath); // Load the font
 
         //TODO: load UTC solar offset = baseOffset;
-
     };
 
     p.setup = () => {
@@ -65,9 +62,16 @@ const sketch = (p) => {
     };
 
     p.draw = () => {
-        // // Example draw code: Draw a circle that follows the mouse
-        // p.fill(100);
-        // p.ellipse(p.mouseX, p.mouseY, 50, 50);
+        p.textFont(signFont);
+        p.textSize(32);
+        p.fill(0);
+        p.textAlign(p.CENTER, p.CENTER);   
+        p.text(locations[3].city, p.width / 2, 30); // Center the text horizontally
+
+
+        // Example draw code: Draw a circle that follows the mouse
+        p.fill(100);
+        p.ellipse(p.mouseX, p.mouseY, 50, 50);
     };
 };
 
