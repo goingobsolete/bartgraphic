@@ -3,9 +3,9 @@ import bgImgPath from '../assets/images/pagetexture_cleaned.png';  // Import the
 
 // fonts
 import caslonSignPath from '../assets/fonts/LibreCaslonDisplay-Regular.ttf'; // Import the Display font file
-import caslonBoldPath from '../assets/fonts/Libre_Caslon_Text-Bold.ttf'; // Import the Bold font file
-import caslonItalicPath from '../assets/fonts/Libre_Caslon_Text-Italic.ttf'; // Import the Italic font file
-import caslonRegularPath from '../assets/fonts/Libre_Caslon_Text-Regular.ttf'; // Import the Regular font file
+import caslonBoldPath from '../assets/fonts/LibreCaslonText-Bold.ttf'; // Import the Bold font file
+import caslonItalicPath from '../assets/fonts/LibreCaslonText-Italic.ttf'; // Import the Italic font file
+import caslonRegularPath from '../assets/fonts/LibreCaslonText-Regular.ttf'; // Import the Regular font file
 
 // modules
 // import clockCanvas from '../modulesClasses/clockCanvas.js'; // import clockCanvas class  
@@ -43,10 +43,10 @@ const sketch = (p) => {
     p.preload = () => {
         img = p.loadImage(bgImgPath);  // Load the image
 
-        signFont = p.loadFont(caslonSignPath); // Load the font
-        boldFont = p.loadFont(caslonBoldPath); // Load the font
-        italicFont = p.loadFont(caslonItalicPath); // Load the font
-        regularFont = p.loadFont(caslonRegularPath); // Load the font
+        p.signFont = p.loadFont(caslonSignPath); // Load the font
+        p.boldFont = p.loadFont(caslonBoldPath); // Load the font
+        p.italicFont = p.loadFont(caslonItalicPath); // Load the font
+        p.regularFont = p.loadFont(caslonRegularPath); // Load the font
 
         //TODO: load UTC solar offset = baseOffset;
     };
@@ -62,8 +62,8 @@ const sketch = (p) => {
     };
 
     p.draw = () => {
-        p.textFont(signFont);
-        p.textSize(32);
+        p.textFont(p.italicFont);
+        p.textSize(14);
         p.fill(0);
         p.textAlign(p.CENTER, p.CENTER);   
         p.text(locations[3].city, p.width / 2, 30); // Center the text horizontally
