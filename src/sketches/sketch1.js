@@ -1,20 +1,24 @@
 
+import bgImgPath from '../assets/images/pagetexture_cleaned.png';  // Import the image file
+
+let img;
+
 const sketch = (p) => {
     p.preload = () => {
-        // Load any assets here
-        p.bgImg = p.loadImage('src/assets/images/pagetexture_cleaned.png');
-    }
-
+        img = p.loadImage(bgImgPath);  // Load the image
+    };
 
     p.setup = () => {
-        const canvas = p.createCanvas(p.bgImg.width, p.bgImg.height); // Create a canvas
+        const canvas = p.createCanvas(img.width, img.height); // Create a canvas
         canvas.id('MyCanvas'); // Set id of the canvas
         canvas.parent('test'); // Attach canvas to the div with id "test"
-        p.background(p.bgImg);
+        p.background(255);
+
+        // Display the image
+        p.image(img, 0, 0);
     };
 
     p.draw = () => {
-        p.background(200);
         // Example draw code: Draw a circle that follows the mouse
         p.fill(100);
         p.ellipse(p.mouseX, p.mouseY, 50, 50);
