@@ -57,16 +57,29 @@ const sketch = (p) => {
         canvas.parent('test'); // Attach canvas to the div with id "test"
         p.background(255);
 
+        dF = p.width / locations.length*2;
+        console.log(dF);
+
         // Display the image
         p.image(img, 0, 0);
+
+        // create array of fonts
+        const fonts = {
+            signFont: p.signFont,
+            boldFont: p.boldFont,
+            italicFont: p.italicFont,
+            regularFont: p.regularFont
+        };
+
+        
     };
 
     p.draw = () => {
-        p.textFont(p.italicFont);
-        p.textSize(14);
-        p.fill(0);
-        p.textAlign(p.CENTER, p.CENTER);   
-        p.text(locations[3].city, p.width / 2, 30); // Center the text horizontally
+        // p.textFont(p.italicFont);
+        // p.textSize(14);
+        // p.fill(0);
+        // p.textAlign(p.CENTER, p.CENTER);   
+        // p.text(locations[3].city, p.width / 2, 30); // Center the text horizontally
 
 
         // Example draw code: Draw a circle that follows the mouse
