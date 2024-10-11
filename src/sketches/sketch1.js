@@ -1,8 +1,6 @@
 // images
 import bgImgPath from '../assets/images/pagetexture_cleaned.png';  // Import the image file
 
-//data
-
 // fonts
 import caslonSignPath from '../assets/fonts/LibreCaslonDisplay-Regular.ttf'; // Import the Display font file
 import caslonBoldPath from '../assets/fonts/LibreCaslonText-Bold.ttf'; // Import the Bold font file
@@ -10,8 +8,7 @@ import caslonItalicPath from '../assets/fonts/LibreCaslonText-Italic.ttf'; // Im
 import caslonRegularPath from '../assets/fonts/LibreCaslonText-Regular.ttf'; // Import the Regular font file
 
 // modules
-// import UTC offse function
-// import clockCanvas from '../modulesClasses/clockCanvas.js'; // import clockCanvas class  
+import clockCanvas from '../modulesClasses/clockCanvas.js'; // import clockCanvas class
 
 //TODO: import city list from a json file OR from main.js post calculation
 //TODO: import word list from a json file
@@ -37,19 +34,13 @@ const wordlist = [
 let img;
 
 //offset variable
-let utcOffMs;
+let utcOffSolar;
 
 //calculate the index of the offset UTC
-let utcFirstIndex;
+// let utcFirstIndex;
 
 //Canvas array [canvas#, x (topL), y(topL)]]
-// let clockCanvasArray = [];
-
-// //font variables
-// let signFont, boldFont, italicFont, regularFont;
-
-// let baseOffset;
-
+let clockCanvasArray = [];
 
 const sketch = (p) => {
     p.preload = () => {
@@ -62,9 +53,7 @@ const sketch = (p) => {
 
         //TODO: load UTC solar offset
         //utcOffMs = await getUTCOffMs();
-        utcOffMs = 100; // example for development
-
-
+        utcOffSolar = 100; // example for development
     };
 
     p.setup = () => {
@@ -81,54 +70,64 @@ const sketch = (p) => {
             regularFont: p.regularFont
         };
 
-     // Canvas placement caluclations
+        // Canvas placement calculations
         // diameter factor
-        dF = p.width / locations.length*2;
-        console.log(dF);
-        heightOffset = p.height / 2;
+        const dF = img.width / 10;
+        // const heightOffset = p.height / 2;
 
-        //TODO: make this dynamic
+        console.log(dF);
+
+        // Size and placement calculations
+        // const sizePlacement = [
+        //     { canWidth: (dF * 1.5), canHeight: (dF * 3), topLx: (dF * 0.75), topLy: (heightOffset - (dF * 1.5)) },
+        //     { canWidth: (dF * 1.5), canHeight: (dF * 3), topLx: (dF * 2.25), topLy: (heightOffset - (dF * 1.5)) },
+        //     { canWidth: (dF * 2.5), canHeight: (dF * 5), topLx: (dF * 3.75), topLy: (heightOffset - (dF * 2.5)) },
+        //     { canWidth: (dF * 1.5), canHeight: (dF * 3), topLx: (dF * 5.25), topLy: (heightOffset - (dF * 1.5)) },
+        //     { canWidth: (dF * 1.5), canHeight: (dF * 3), topLx: (dF * 6.75), topLy: (heightOffset - (dF * 1.5)) }
+        // ];
+
         const sizePlacement = [
-            {canWidth: (df*1.5), canHeight: (df*3), topLx: (dF*0.75), topLy: (heightOffset - (dF*1.5))},
-            {canWidth: (df*1.5), canHeight: (df*3), topLx: (dF*2.25), topLy: (heightOffset - (dF*1.5))},
-            {canWidth: (df*2.5), canHeight: (df*5), topLx: (dF*3.75), topLy: (heightOffset - (dF*2.5))},
-            {canWidth: (df*1.5), canHeight: (df*3), topLx: (dF*5.25), topLy: (heightOffset - (dF*1.5))},
-            {canWidth: (df*1.5), canHeight: (df*3), topLx: (dF*6.75), topLy: (heightOffset - (dF*1.5))}
+            { canWidth: (dF * 1.5), canHeight: (dF * 3), topLx: (dF * 0.75), topLy: 40 },
+            { canWidth: (dF * 1.5), canHeight: (dF * 3), topLx: (dF * 2.25), topLy: 40 },
+            { canWidth: (dF * 2.5), canHeight: (dF * 5), topLx: (dF * 3.75), topLy: 40 },
+            { canWidth: (dF * 1.5), canHeight: (dF * 3), topLx: (dF * 5.25), topLy: 40 },
+            { canWidth: (dF * 1.5), canHeight: (dF * 3), topLx: (dF * 6.75), topLy: 40 }
         ];
 
-        // //left margin is essentially d but with part given to next clock
-        // leftMargin = dF*0.75;
-        // //smClockCanvas is the diameter of the smaller clock (1xdF)+half the spacing on either side
-        // smClockCanvas = dF*1.5;
-        // //lgClockCanvas is the diameter of the largerer clock (2xdF)+half the spacing on either side
-        // lgClockCanvas = dF*2.5;
-
-        // //NOTE: right margin doesnt need to be defined. also these variables arent really dynamic. 
-
-        // 0, leftMargin *
-
-
-    // Word index calculations
-        // Get current time
-
-
-
-        // Display the image
         p.image(img, 0, 0);
-        
+
+        // Create instances of clockCanvas
+        for (let i = 0; i < locations.length; i++) {
+            let clock = new clockCanvas(
+                p,
+                fonts,
+                locations[i].city,
+                locations[i].UTCoffMS + utcOffSolar,
+                locations[i].IntitIndex,
+                wordlist,
+                sizePlacement[i].canWidth,
+                sizePlacement[i].canHeight
+            );
+            clockCanvasArray.push({
+                clock: clock,
+                x: sizePlacement[i].topLx,
+                y: sizePlacement[i].topLy
+            });
+        }
     };
 
     p.draw = () => {
-        // p.textFont(p.italicFont);
-        // p.textSize(14);
-        // p.fill(0);
-        // p.textAlign(p.CENTER, p.CENTER);   
-        // p.text(locations[3].city, p.width / 2, 30); // Center the text horizontally
+        p.background(255);
+        p.image(img, 0, 0);
 
+        for (let canvas of clockCanvasArray) {
+            canvas.clock.draw();
+            canvas.clock.display(canvas.x, canvas.y);
+        }
 
-        // Example draw code: Draw a circle that follows the mouse
-        p.fill(100);
-        p.ellipse(p.mouseX, p.mouseY, 50, 50);
+        // // Example draw code: Draw a circle that follows the mouse
+        // p.fill(100);
+        // p.ellipse(p.mouseX, p.mouseY, 50, 50);
     };
 };
 
