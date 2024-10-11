@@ -1,6 +1,8 @@
 // images
 import bgImgPath from '../assets/images/pagetexture_cleaned.png';  // Import the image file
 
+//data
+
 // fonts
 import caslonSignPath from '../assets/fonts/LibreCaslonDisplay-Regular.ttf'; // Import the Display font file
 import caslonBoldPath from '../assets/fonts/LibreCaslonText-Bold.ttf'; // Import the Bold font file
@@ -8,6 +10,7 @@ import caslonItalicPath from '../assets/fonts/LibreCaslonText-Italic.ttf'; // Im
 import caslonRegularPath from '../assets/fonts/LibreCaslonText-Regular.ttf'; // Import the Regular font file
 
 // modules
+// import UTC offse function
 // import clockCanvas from '../modulesClasses/clockCanvas.js'; // import clockCanvas class  
 
 //TODO: import city list from a json file OR from main.js post calculation
@@ -33,11 +36,20 @@ const wordlist = [
 //img variables
 let img;
 
+//offset variable
+let utcOffMs;
+
+//calculate the index of the offset UTC
+let utcFirstIndex;
+
+//Canvas array [canvas#, x (topL), y(topL)]]
+// let clockCanvasArray = [];
+
 // //font variables
 // let signFont, boldFont, italicFont, regularFont;
 
 // let baseOffset;
-// let clockCanvasArray = [];
+
 
 const sketch = (p) => {
     p.preload = () => {
@@ -48,7 +60,11 @@ const sketch = (p) => {
         p.italicFont = p.loadFont(caslonItalicPath); // Load the font
         p.regularFont = p.loadFont(caslonRegularPath); // Load the font
 
-        //TODO: load UTC solar offset = baseOffset;
+        //TODO: load UTC solar offset
+        //utcOffMs = await getUTCOffMs();
+        utcOffMs = 100; // example for development
+
+
     };
 
     p.setup = () => {
@@ -56,12 +72,6 @@ const sketch = (p) => {
         canvas.id('MyCanvas'); // Set id of the canvas
         canvas.parent('test'); // Attach canvas to the div with id "test"
         p.background(255);
-
-        dF = p.width / locations.length*2;
-        console.log(dF);
-
-        // Display the image
-        p.image(img, 0, 0);
 
         // create array of fonts
         const fonts = {
@@ -71,6 +81,40 @@ const sketch = (p) => {
             regularFont: p.regularFont
         };
 
+     // Canvas placement caluclations
+        // diameter factor
+        dF = p.width / locations.length*2;
+        console.log(dF);
+        heightOffset = p.height / 2;
+
+        //TODO: make this dynamic
+        const sizePlacement = [
+            {canWidth: (df*1.5), canHeight: (df*3), topLx: (dF*0.75), topLy: (heightOffset - (dF*1.5))},
+            {canWidth: (df*1.5), canHeight: (df*3), topLx: (dF*2.25), topLy: (heightOffset - (dF*1.5))},
+            {canWidth: (df*2.5), canHeight: (df*5), topLx: (dF*3.75), topLy: (heightOffset - (dF*2.5))},
+            {canWidth: (df*1.5), canHeight: (df*3), topLx: (dF*5.25), topLy: (heightOffset - (dF*1.5))},
+            {canWidth: (df*1.5), canHeight: (df*3), topLx: (dF*6.75), topLy: (heightOffset - (dF*1.5))}
+        ];
+
+        // //left margin is essentially d but with part given to next clock
+        // leftMargin = dF*0.75;
+        // //smClockCanvas is the diameter of the smaller clock (1xdF)+half the spacing on either side
+        // smClockCanvas = dF*1.5;
+        // //lgClockCanvas is the diameter of the largerer clock (2xdF)+half the spacing on either side
+        // lgClockCanvas = dF*2.5;
+
+        // //NOTE: right margin doesnt need to be defined. also these variables arent really dynamic. 
+
+        // 0, leftMargin *
+
+
+    // Word index calculations
+        // Get current time
+
+
+
+        // Display the image
+        p.image(img, 0, 0);
         
     };
 
